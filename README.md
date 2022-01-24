@@ -16,7 +16,7 @@
 </div>
 
 ```bash
-git clone xxx
+git clone -b develop https://github.com/yonggithub/qinglong-vscode.git
 cd qinglong-vscode
 docker build . -t qinglong-vscode:latest
 ```
