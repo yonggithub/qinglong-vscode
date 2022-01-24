@@ -10,7 +10,51 @@
 <div align="center">
 
 本项目整合了青龙面板和code server(vscode web), 便于随时随地写脚本。
+  
+需要手动打包docker 镜像然后部署.
+
+</div>
+
+```bash
+git clone xxx
+cd qinglong-vscode
+docker build . -t qinglong-vscode:latest
+
+docker run -dit \
+  -e PUID=0 \
+  -e PGID=0 \
+  -e LC_ALL=C \
+  -e TZ=Asia/Shanghai \
+  -e PASSWORD=111111  \
+  -e SUDO_PASSWORD=111111 \
+    --shm-size 1G --log-opt max-size=10m \
+  -v /disk2T/docker/qinglong/qlong/ql/config:/ql/config \
+  -v /disk2T/docker/qinglong/qlong/ql/log:/ql/log \
+  -v /disk2T/docker/qinglong/qlong/ql/db:/ql/db \
+  -v /disk2T/docker/qinglong/qlong/ql/repo:/ql/repo \
+  -v /disk2T/docker/qinglong/qlong/ql/raw:/ql/raw \
+  -v /disk2T/docker/qinglong/qlong/ql/scripts:/ql/scripts \
+  -p 5700:5700 \
+  -p 8443:8443 \
+  --name qinglongserver \
+  --hostname tangzhiyong.picp.io \
+  --restart unless-stopped \
+    qinglongserver:latest
+```
+
+
+参数说明:
+* 5700=> 面板访问端口<br/>
+* 8443=> vscode 访问端口
+* PUID=>vscode 登陆用户的PUID, 0是root
+* PGID=>vscode 登陆用户的PUID, 0是root
+* PASSWORD=>vscode 登陆密码
+
+
+
+
 
 ## 链接
 - [qinglong](https://github.com/whyour/qinglong)
 - [code server](https://github.com/coder/code-server)
+- 
