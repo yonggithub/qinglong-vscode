@@ -19,7 +19,8 @@
 git clone xxx
 cd qinglong-vscode
 docker build . -t qinglong-vscode:latest
-
+```
+```bash
 docker run -dit \
   -e PUID=0 \
   -e PGID=0 \
